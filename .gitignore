@@ -1,0 +1,41 @@
+
+# CMake build directories
+build/
+build-release/
+build-debug/
+build-ci/
+cmake-build-*/
+
+# CMake-generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+Testing/
+compile_commands.json
+
+# Compiled binaries and objects
+*.exe
+*.o
+*.obj
+*.a
+*.lib
+*.dll
+*.pdb
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# IDE files
+.vs/
+.idea/
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Temporary test outputs
+workload_io_test_data/

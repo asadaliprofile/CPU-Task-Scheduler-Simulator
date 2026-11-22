@@ -1,0 +1,63 @@
+
+name: C++ Build and Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: Windows MinGW C++17
+    runs-on: windows-latest
+    timeout-minutes: 20
+
+    defaults:
+      run:
+        shell: msys2 {0}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install MSYS2 toolchain
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-cmake
+            mingw-w64-ucrt-x86_64-ninja
+
+      - name: Display compiler and CMake versions
+        run: |
+          g++ --version
+          cmake --version
+          ninja --version
+
+      - name: Configure Release build
+        run: |
+          cmake -S . -B build-ci \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_CXX_COMPILER=g++
+
+      - name: Build project
+        run: cmake --build build-ci --parallel 2
+
+      - name: Run all CTest suites
+        run: |
+          ctest --test-dir build-ci \
+            --output-on-failure \
+            --parallel 2
+
+      - name: Verify benchmark executable
+        run: test -f build-ci/scheduler_benchmark.exe
