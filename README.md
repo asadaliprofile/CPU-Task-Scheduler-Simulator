@@ -1,5 +1,7 @@
-
 # CPU Task Scheduler Simulator
+
+[![C++ Build and Tests](https://github.com/asadaliprofile/CPU-Task-Scheduler-Simulator/actions/workflows/ci.yml/badge.svg)](https://github.com/asadaliprofile/CPU-Task-Scheduler-Simulator/actions/workflows/ci.yml)
+
 
 A modular **C++17 CPU scheduling simulator** implementing nine scheduling
 configurations, workload management, performance analysis, randomized
